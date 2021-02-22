@@ -1,6 +1,6 @@
 // required packages
 var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
+var urlencodedParser = bodyParser.urlencoded({extended: true});
 var fs = require('fs');
 
 // read the data file
@@ -22,12 +22,23 @@ module.exports = {
 
         app.get('/home', function(req, res){
             // /home/:id -> req.params.id
-            let data = {};
+            let data = readData('name');
             res.json(data);
         });
 
-        app.post('/home', urlencodedParser, (req, res) => {
-            let data = {};
+        app.post('/home/:index', urlencodedParser, (req, res) => {
+            console.log(req.params);
+            // console.log(req.params);
+            const i = Number(req.params.index);
+            
+            let data = readData('name');
+
+            data = data.filter((elem, index) => {
+                return index !== i
+            })
+
+            data = writeData(data, 'name');
+            
             res.json(data);
         });
 
