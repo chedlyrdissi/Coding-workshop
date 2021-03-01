@@ -22,23 +22,48 @@ module.exports = {
 
         app.get('/home', function(req, res){
             // /home/:id -> req.params.id
-            let data = readData('name');
+            let data = readData('recipes');
+            res.json(data);
+        });
+        
+        app.get('/chefs', function(req, res){
+            // /home/:id -> req.params.id
+            let data = readData('chefs');
+            data = data.map((elem, index)=>{
+                return {name: elem.name, id: index}
+            });
             res.json(data);
         });
 
-        app.post('/home/:index', urlencodedParser, (req, res) => {
-            console.log(req.params);
-            // console.log(req.params);
-            const i = Number(req.params.index);
-            
-            let data = readData('name');
-
+        app.get('/chef/:id', function(req, res){
+            const id = req.params.id;
+            let data = readData('chefs');
             data = data.filter((elem, index) => {
-                return index !== i
-            })
+                return elem.id == id;
+            });
+            console.log(data);
+            if(data.length === 0) {
+                res.send(new Error('Id invalid'));
+            } else {
+                res.json(data[0]);
+            }
+        });
 
-            data = writeData(data, 'name');
+        app.post('/recipes', urlencodedParser, (req, res) => {
+            console.log(req.body);
+            const data = req.body.data
+            let recipes = readData('recipes');
+            const newrecipe = {label: req.body.label, image: req.body.image}
+            recipes.push(newrecipe);
+            writeData(recipes, 'recipes');
+            res.json(recipes);
+        });
+
+        app.post('/home', urlencodedParser, (req, res) => {
+            console.log(req.body);
             
+            const data = req.body.data
+            writeData(data, 'recipes');
             res.json(data);
         });
 

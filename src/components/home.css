@@ -6,3 +6,21 @@
 .name {
 	font-size: 30px;
 }
+
+.recipe {
+	width: 90%;
+}
+
+h1:hover {
+	color: blue;
+}
+
+.btn-close {
+	height: fit-content;
+	align-self: center;
+}
+
+.hidden {
+	display: none;
+}
+
