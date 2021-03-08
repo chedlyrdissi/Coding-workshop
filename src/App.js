@@ -5,6 +5,9 @@ import { BrowserRouter, Route, Redirect, Switch, NavLink } from 'react-router-do
 import Home from './components/home';
 import Chefs from './components/chefs/chefs';
 import Chef from './components/chef/chef';
+import AddRecipe from './components/addrecipe/addrecipe';
+import Temp from './components/temp/temp';
+import AddChef from './components/addchef/addchef';
 
 function App() {
   return (
@@ -19,7 +22,10 @@ function App() {
     	<Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/chefs" component={Chefs}/>
-      	<Route exact path="/chef/:id" component={Chef}/>
+        <Route exact path="/chef/:id" component={Chef}/>
+        <Route exact path="/addrecipe" component={AddRecipe}/>
+        <Route exact path="/addchef" component={AddChef}/>
+      	<Route exact path="/temp" component={Temp}/>
       	<Route path='*' exact={true}>
         	<Redirect from='*' to='/' />
       	</Route>

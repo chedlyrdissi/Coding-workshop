@@ -14,9 +14,11 @@ class Chef extends Component {
 
 	constructor(props) {
 		super();
+		// console.log(props);
 	}
 
 	componentDidMount() {
+		console.log(this.props);
 		this.chefId = this.props.match.params.id;
 		this.getList();
 	}
@@ -26,7 +28,7 @@ class Chef extends Component {
 	        method: 'GET',
 	      	headers: { 'Content-Type': 'application/json' }
     	};
-        fetch('http://localhost:4000/chef/'+this.chefId,requestOptions)
+        fetch(`http://localhost:4000/chef/${this.chefId}`,requestOptions)
         .then(response => response.json())
         .then((data) => {
         	this.setState(data);

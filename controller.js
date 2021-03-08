@@ -67,5 +67,14 @@ module.exports = {
             res.json(data);
         });
 
+
+        app.post('/chefs', urlencodedParser, (req, res) => {
+            console.log(req.body.name);
+            const data = readData('chefs')
+            data.push({"id": data.length, "name": req.body.name, "image": "https://image.freepik.com/free-vector/chef-character-design_1322-128.jpg"});
+            writeData(data, 'chefs');
+            res.json({data: data});
+        });
+
     }
 }

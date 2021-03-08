@@ -35,7 +35,9 @@ class AddRecipe extends Component {
 	}
 
 	changeHandler = (event) => {
+		// console.log(event.currentTarget);
 		console.log(event.currentTarget.value);
+		// event.currentTarget.value += "+";
 	}
 
 	render() {

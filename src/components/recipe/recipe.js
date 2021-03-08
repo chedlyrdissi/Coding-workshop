@@ -3,6 +3,10 @@ import './recipe.css';
 
 class Recipe extends Component {
 
+	componentDidMount() {
+		console.log(this.props);
+	}
+
 	render() {
 		return (
 			<div className="d-inline-flex w-100">

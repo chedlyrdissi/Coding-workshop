@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Recipe from './recipe/recipe.js';
 import AddRecipe from './addrecipe/addrecipe';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 import './home.css';
 
 
@@ -8,7 +11,8 @@ class Home extends Component {
 
 	state = {
 		list: [],
-		addView: false
+		addView: false,
+		show: false
 	}
 
 	constructor(props) {
@@ -37,6 +41,7 @@ class Home extends Component {
     }
 
     handleClick = async (event) => {
+    	// console.log(event.target);
     	const i = event.target.attributes['index'].value;
     	// console.log(i);
 
@@ -79,6 +84,15 @@ class Home extends Component {
 		console.log('toggle');
 	};
 
+  	handleClose = () => {
+  		this.setState({show: false});
+  	};
+  	
+  	handleShow = () => {
+  		this.setState({show: true});
+  	};
+
+
 	render() {
 		let row = []
 		for(let i in this.state.list) {
@@ -102,10 +116,28 @@ class Home extends Component {
 					<div className="col-1">
 						<button className=" btn btn-outline-success" onClick={(event)=>{this.toggleAdd(event)}}>+</button>
 					</div>
+					<Button variant="primary" onClick={this.handleShow}>
+				        Launch static backdrop modal
+				    </Button>
 				</div>
 				<div className={`row my-2 ${this.state.addView? "" : "hidden"}`}>
 					<AddRecipe parent={this}/>
 				</div>
+
+
+		    <Modal
+		        show={this.state.show}
+		        onHide={this.handleClose}
+		        backdrop="static"
+		        keyboard={false}
+		      >
+		        <Modal.Header closeButton>
+		          <Modal.Title>Modal title</Modal.Title>
+		        </Modal.Header>
+		        <Modal.Body>
+		          <AddRecipe parent={this}/>
+		        </Modal.Body>
+		      </Modal>
 				<div className="container mt-3">
 					{row}
 				</div>
